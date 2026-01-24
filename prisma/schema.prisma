@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            BigInt   @id @default(autoincrement())
+  name          String   @unique
+  email         String   @unique
+  password      String
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+  roles         Role[]
+  favoriteBooks Book[]
+}
+
+model Role {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  users User[]
+}
+
+model Author {
+  id    Int    @id @default(autoincrement())
+  name  String
+  books Book[]
+}
+
+model Book {
+  id          BigInt      @id @default(autoincrement())
+  title       String
+  authors     Author[]
+  genres      BookGenre[]
+  favoritedBy User[]
+}
+
+model BookGenre {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  books Book[]
+}
