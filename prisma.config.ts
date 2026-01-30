@@ -3,7 +3,9 @@ import * as dotenvExpand from 'dotenv-expand';
 import 'dotenv/config';
 import { defineConfig } from 'prisma/config';
 
-const config = dotenv.config();
+const config = dotenv.config({
+  quiet: true,
+});
 dotenvExpand.expand(config);
 
 export default defineConfig({

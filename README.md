@@ -9,6 +9,7 @@ This project is REST API Application for a books service. It allows users to reg
 - [NestJS](https://nestjs.com)
 - [PostgreSQL](https://www.postgresql.org)
 - [Prisma ORM](https://www.prisma.io)
+- [JWT Authentication](https://jwt.io)
 
 ## Architecture
 
@@ -17,6 +18,30 @@ This project is REST API Application for a books service. It allows users to reg
 - Modules group related functionality
 - DTOs are used for data validation and transfer
 - Prisma is used for database access
+
+## Docker Setup
+
+You can run the project using Docker Compose:
+
+```
+docker-compose up --build
+```
+
+## API Documentation
+
+After starting the application, API documentation will be available at http://localhost:3000/api
+
+## Granting and revoking roles
+
+Example of granting admin:
+```
+npm run grant-role -- example@example.com Admin
+```
+
+Example of revoking admin:
+```
+npm run revoke-role -- example@example.com Admin
+```
 
 ## Project Status
 
