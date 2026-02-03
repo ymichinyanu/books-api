@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable, OnModuleInit } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { Roles } from './roles/roles';
 import { User } from '@prisma/client';
 import { DEFAULT_ROLE } from './roles/default-role';

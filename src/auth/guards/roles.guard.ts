@@ -2,6 +2,7 @@ import {
   CanActivate,
   ExecutionContext,
   ForbiddenException,
+  Injectable,
   InternalServerErrorException,
   Logger,
 } from '@nestjs/common';
@@ -10,6 +11,7 @@ import { Request } from 'express';
 import { RequireRole } from '../decorators/require-role.decorator';
 import { PrismaService } from '../../prisma/prisma.service';
 
+@Injectable()
 export class RolesGuard implements CanActivate {
   private readonly logger = new Logger(RolesGuard.name);
 
