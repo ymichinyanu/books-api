@@ -8,6 +8,7 @@ import {
   Param,
   Post,
   Request,
+  Response,
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
@@ -20,6 +21,7 @@ import {
   ApiNoContentResponse,
   ApiOkResponse,
   ApiOperation,
+  ApiProduces,
 } from '@nestjs/swagger';
 import { RequireRole } from '../auth/decorators/require-role.decorator';
 import { AuthGuard } from '../auth/guards/auth.guard';
@@ -55,10 +57,10 @@ export class BooksController {
   })
   @ApiOperation({ summary: 'Get a list of all book IDs' })
   async listBooks(): Promise<string[]> {
-    return await this.booksService.getAllBooks();
+    return await this.booksService.getAllBookIds();
   }
 
-  @Get(':id')
+  @Get('by-id/:id')
   @ApiOkResponse({
     type: BookDto,
   })
@@ -106,5 +108,22 @@ export class BooksController {
     if (!req.user) throw new UnauthorizedException();
 
     await this.booksService.removeFromFavorites(id, req.user.id);
+  }
+
+  @Get('export')
+  @ApiProduces('text/csv')
+  @ApiOkResponse({
+    description: 'CSV file with books',
+    schema: {
+      type: 'string',
+      format: 'binary',
+    },
+  })
+  @ApiBearerAuth('access-token')
+  @ApiOperation({ summary: '[Admin] Export all books in CSV format' })
+  @RequireRole(['Admin'])
+  @UseGuards(AuthGuard, RolesGuard)
+  async exportBooks(@Response() res) {
+    await this.booksService.exportBooks(res);
   }
 }

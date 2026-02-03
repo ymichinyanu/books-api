@@ -43,10 +43,6 @@ Example of revoking admin:
 npm run revoke-role -- example@example.com Admin
 ```
 
-## Project Status
-
-🚧 Work in progress 🚧
-
 ## License
 
 This project is available under the MIT license. See [LICENSE](LICENSE) for details.

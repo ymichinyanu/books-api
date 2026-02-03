@@ -1,6 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, Res } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { BookDto } from './dto/book.dto';
+import { Response } from 'express';
+import * as fastcsv from 'fast-csv';
 
 @Injectable()
 export class BooksService {
@@ -34,7 +36,7 @@ export class BooksService {
     };
   }
 
-  async getAllBooks(): Promise<string[]> {
+  async getAllBookIds(): Promise<string[]> {
     const rawBooks = await this.prismaService.book.findMany({
       select: { id: true },
     });
@@ -111,5 +113,42 @@ export class BooksService {
         },
       },
     });
+  }
+
+  async exportBooks(res: Response) {
+    const books = await this.prismaService.book.findMany({
+      include: {
+        authors: {
+          select: {
+            name: true,
+          },
+        },
+        genres: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
+
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', 'attachment; filename=books.csv');
+
+    const csvStream = fastcsv.format({ headers: true });
+    csvStream.pipe(res);
+
+    for (const book of books) {
+      const authors = book.authors.map((author) => author.name);
+      const genres = book.genres.map((genre) => genre.name);
+
+      csvStream.write({
+        id: book.id.toString(),
+        title: book.title,
+        authors: authors.join(', '),
+        genres: genres.join(', '),
+      });
+    }
+
+    csvStream.end();
   }
 }
