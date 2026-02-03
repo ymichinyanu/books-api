@@ -1,11 +1,19 @@
-import { BadRequestException, Injectable, OnModuleInit } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+  OnModuleInit,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Roles } from './roles/roles';
 import { User } from '@prisma/client';
 import { DEFAULT_ROLE } from './roles/default-role';
+import { raw, Request } from 'express';
+import { UserDto } from './dto/user.dto';
 
 @Injectable()
-export class UserService implements OnModuleInit {
+export class UsersService implements OnModuleInit {
   constructor(private readonly prismaService: PrismaService) {}
 
   async onModuleInit() {
@@ -83,5 +91,44 @@ export class UserService implements OnModuleInit {
         email,
       },
     });
+  }
+
+  async getById(id: string): Promise<UserDto | null> {
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        id: BigInt(id),
+      },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        favoriteBooks: {
+          select: {
+            id: true,
+          },
+        },
+        roles: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
+
+    if (!user) return null;
+
+    return new UserDto(user);
+  }
+
+  async getCurrentUser(request: Request): Promise<UserDto> {
+    const id = request.user?.id;
+
+    if (!id) throw new UnauthorizedException();
+
+    const user = await this.getById(id);
+
+    if (!user) throw new NotFoundException();
+
+    return user;
   }
 }

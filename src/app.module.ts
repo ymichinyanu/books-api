@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { UserModule } from './user/user.module';
+import { UsersModule } from './users/users.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -25,7 +25,7 @@ import { JwtModule } from '@nestjs/jwt';
       inject: [ConfigService],
       global: true,
     }),
-    UserModule,
+    UsersModule,
     PrismaModule,
     AuthModule,
     BooksModule,
