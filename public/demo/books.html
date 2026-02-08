@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Books</title>
+    <link rel="stylesheet" href="./book-card.css" />
+  </head>
+  <body>
+    <h1>Books</h1>
+
+    <nav style="margin-block: 10px">
+      <a href="./">Main page</a>
+    </nav>
+
+    <section id="create-book-section" style="display: none">
+      <h2>Create new book</h2>
+
+      <form id="create-book-form">
+        <div>
+          <label for="create-book-title">Title</label>
+          <input type="text" id="create-book-title" name="create-book-title" />
+        </div>
+
+        <div>
+          <label for="create-book-authors">Authors</label>
+          <select
+            name="create-book-authors"
+            id="create-book-authors"
+            multiple
+            size="1"
+          ></select>
+        </div>
+
+        <div>
+          <label for="create-book-genres">Genres</label>
+          <select
+            name="create-book-genres"
+            id="create-book-genres"
+            multiple
+            size="1"
+          ></select>
+        </div>
+
+        <div>
+          <button type="submit" id="create-book-button">Create</button>
+        </div>
+      </form>
+    </section>
+
+    <hr />
+
+    <template id="book-card-template">
+      <div class="book-card">
+        <p><b class="book-card-title"></b></p>
+        <p>
+          <i>By: <span class="book-card-authors"></span></i>
+        </p>
+        <p><span class="book-card-genres"></span></p>
+        <hr />
+        <button class="book-card-favorite" style="display: none">
+          Add to favorites
+        </button>
+        <button class="book-card-delete" style="display: none">Delete</button>
+      </div>
+    </template>
+
+    <script type="module" src="./books.js"></script>
+  </body>
+</html>

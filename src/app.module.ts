@@ -7,6 +7,8 @@ import { BooksModule } from './books/books.module';
 import { AuthorsModule } from './authors/authors.module';
 import { GenresModule } from './genres/genres.module';
 import { JwtModule } from '@nestjs/jwt';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -24,6 +26,20 @@ import { JwtModule } from '@nestjs/jwt';
       }),
       inject: [ConfigService],
       global: true,
+    }),
+    ServeStaticModule.forRootAsync({
+      useFactory: async (configService: ConfigService) => {
+        if (configService.getOrThrow<string>('NODE_ENV') === 'production')
+          return [];
+
+        return [
+          {
+            rootPath: join(__dirname, '..', '..', 'public', 'demo'),
+            serveRoot: '/demo',
+          },
+        ];
+      },
+      inject: [ConfigService],
     }),
     UsersModule,
     PrismaModule,

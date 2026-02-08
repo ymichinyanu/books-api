@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Authors</title>
+  </head>
+  <body>
+    <h1>Authors</h1>
+
+    <nav style="margin-block: 10px">
+      <a href="./">Main page</a>
+    </nav>
+
+    <section id="create-author-section" style="display: none">
+      <h2>Create new author</h2>
+
+      <form id="create-author-form">
+        <div>
+          <label for="create-author-name">Name</label>
+          <input
+            type="text"
+            id="create-author-name"
+            name="create-author-name"
+          />
+        </div>
+
+        <div>
+          <button type="submit" id="create-author-button">Create</button>
+        </div>
+      </form>
+    </section>
+
+    <hr />
+
+    <ul id="authors-list"></ul>
+
+    <script type="module" src="./authors.js"></script>
+  </body>
+</html>

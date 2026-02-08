@@ -71,7 +71,7 @@ export class BooksService {
       id: rawBook.id.toString(),
       title: rawBook.title,
       authors: rawBook.authors.map((author) => author.id),
-      genres: rawBook.authors.map((genre) => genre.id),
+      genres: rawBook.genres.map((genre) => genre.id),
     };
 
     return book;

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Genres</title>
+  </head>
+  <body>
+    <h1>Genres</h1>
+
+    <nav style="margin-block: 10px">
+      <a href="./">Main page</a>
+    </nav>
+
+    <section id="create-genre-section" style="display: none">
+      <h2>Create new genre</h2>
+
+      <form id="create-genre-form">
+        <div>
+          <label for="create-genre-name">Name</label>
+          <input type="text" id="create-genre-name" name="create-genre-name" />
+        </div>
+
+        <div>
+          <button type="submit" id="create-genre-button">Create</button>
+        </div>
+      </form>
+    </section>
+
+    <hr />
+
+    <ul id="genres-list"></ul>
+
+    <script type="module" src="./genres.js"></script>
+  </body>
+</html>

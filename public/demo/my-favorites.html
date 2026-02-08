@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Favorites</title>
+    <link rel="stylesheet" href="./book-card.css" />
+  </head>
+  <body>
+    <h1>My Favorites</h1>
+
+    <nav style="margin-block: 10px">
+      <a href="./">Main page</a>
+    </nav>
+
+    <hr />
+
+    <template id="book-card-template">
+      <div class="book-card">
+        <p><b class="book-card-title"></b></p>
+        <p>
+          <i>By: <span class="book-card-authors"></span></i>
+        </p>
+        <p><span class="book-card-genres"></span></p>
+        <hr />
+        <button class="book-card-remove">Remove</button>
+      </div>
+    </template>
+
+    <script type="module" src="./my-favorites.js"></script>
+  </body>
+</html>

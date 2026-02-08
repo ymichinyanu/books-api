@@ -36,6 +36,11 @@ async function bootstrap() {
     SwaggerModule.createDocument(app, documentConfig);
   SwaggerModule.setup('api', app, documentFactory);
 
-  await app.listen(config.getOrThrow<string>('PORT'));
+  const PORT = config.getOrThrow<string>('PORT');
+
+  await app.listen(PORT);
+
+  if (config.getOrThrow<string>('NODE_ENV') !== 'production')
+    console.log(`Frontend demo available at http://localhost:${PORT}/demo`);
 }
 bootstrap();
