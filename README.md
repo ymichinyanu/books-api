@@ -19,6 +19,17 @@ This project is REST API Application for a books service. It allows users to reg
 - DTOs are used for data validation and transfer
 - Prisma is used for database access
 
+## Setup
+
+1. Install Node.js & PostgreSQL
+2. Create your user and database in PostgreSQL
+3. Create your `.env` file based on the [.env.example](.env.example)
+4. Make sure your PostgreSQL connection information in the `.env` file is valid.
+5. Run using the following command:
+```
+npm run start:dev
+```
+
 ## Docker Setup
 
 You can run the project using Docker Compose:
@@ -42,6 +53,14 @@ Example of revoking admin:
 ```
 npm run revoke-role -- example@example.com Admin
 ```
+
+## Frontend Demo
+
+A simple frontend demo is included in the project to showcase the API functionality.
+
+### How to open the frontend demo
+
+It will be available at http://localhost:3000/demo if `NODE_ENV` in the .env file is set to `development`.
 
 ## License
 
