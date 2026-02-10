@@ -25,7 +25,15 @@ This project is REST API Application for a books service. It allows users to reg
 2. Create your user and database in PostgreSQL
 3. Create your `.env` file based on the [.env.example](.env.example)
 4. Make sure your PostgreSQL connection information in the `.env` file is valid.
-5. Run using the following command:
+5. Install all npm packages using the following command:
+```
+npm install
+```
+6. Set up Prisma and migrate
+```
+npx prisma generate && npx prisma migrate deploy
+```
+7. Run using the following command:
 ```
 npm run start:dev
 ```
